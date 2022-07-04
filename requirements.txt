@@ -1,0 +1,3 @@
+Cython==0.29.30
+inflection==0.5.1
+PyYAML==6.0
