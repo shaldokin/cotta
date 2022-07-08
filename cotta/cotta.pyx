@@ -224,9 +224,12 @@ cdef class Field(object):
                     setattr(obj, self.name, [get(self.refr_class, item) for item in r_items])
 
                 elif self.kind == 'single':
-                    o_obj = class_objs[self.refr_class](init=False)
-                    init_new_obj(obj.__cotta_file__, o_obj, o_value, lambda: o_obj.__cotta__.from_data(o_obj, o_value))
-                    setattr(obj, self.name, o_obj)
+                    if isinstance(o_value, dict):
+                        o_obj = class_objs[self.refr_class](init=False)
+                        init_new_obj(obj.__cotta_file__, o_obj, o_value, lambda: o_obj.__cotta__.from_data(o_obj, o_value))
+                        setattr(obj, self.name, o_obj)
+                    else:
+                        setattr(obj, self.name, o_value)
 
                 elif self.kind == 'single-list':
                     o_class = class_objs[self.refr_class]
